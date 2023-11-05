@@ -3,26 +3,44 @@
 from threading import Thread
 from rover import *
 
-from flask import Flask, render_template, request
-app = Flask(__name__)
+import asyncio
+import websockets
 
-@app.route('/', methods=['POST', 'GET'])
-def index():
-    return render_template('index.html')
+async def handler(websocket, idk):
+    state = True
+    while True:
+        message = await websocket.recv()
+        if message == "1" and state:
+            lastMessage = message
+            state = False
+            motorStop()
+        if message == "2"and state:
+            lastMessage = message
+            state = False
+            motorForward()
+        if message == "3" and state:
+            lastMessage = message
+            state = False
+            motorBackward()
+        if message == "4" and state:
+            lastMessage = message
+            state = False
+            motorLeft()
+        if message == "5" and state:
+            lastMessage = message
+            state = False
+            motorRight()
+        if message != lastMessage:
+            lastMessage = message
+            state=True
+        print(message)
 
-@app.route('/<num>', methods=['POST'])
-def button(num):
-    if num == "1":
-        return "1"
-    if num == "2":
-        return "2"
+async def main():
+    async with websockets.serve(handler, "192.168.1.5", 8080):
+        await asyncio.Future()
 
-def startSite():
-    app.run(debug=True, use_reloader=False, host='0.0.0.0')
 
-if __name__ == '__main__':
-    t = Thread(target=startSite)
-    t.start()
+if __name__ == "__main__":
     motorSetup()
-
-GPIO.cleanup()
+    asyncio.run(main())
+    GPIO.cleanup()

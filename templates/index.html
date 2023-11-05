@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Raspberry Pi Buttons</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href='style.css'/>
+    <title>Raspberry Pi Dashboard</title>
 </head>
 <body>
-    <form method="post" action="/1">
-        <button type="submit" name="button" value="1">Button 1</button>
-    </form>
-    <form method="post" action="/2">
-        <button type="submit" name="button" value="2">Button 2</button>
-    </form>
+    <input type="button" value="button1" onclick="send(1)">
+    <input type="button" value="button2" onclick="send(2)">
+    <input type="button" value="button3" onclick="send(3)">
+    <input type="button" value="button4" onclick="send(4)">
+    <input type="button" value="button5" onclick="send(5)">
+    <script>
+        const ws = new WebSocket('ws://192.168.1.5:8080');
+        function send(num){
+            ws.send(num);
+            console.log(num);
+        }
+    </script>
+
 </body>
 </html>

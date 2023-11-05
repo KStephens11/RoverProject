@@ -14,14 +14,14 @@ def motorSetup():
     GPIO.setup(in1, GPIO.OUT)
     GPIO.setup(in2, GPIO.OUT)
     GPIO.setup(enA, GPIO.OUT)
-    motor1 = GPIO.PWM(enA, 100)
+    motor1 = GPIO.PWM(enA, 200)
     motor1.start(0)
 
     #Left Motor
     GPIO.setup(in3, GPIO.OUT)
     GPIO.setup(in4, GPIO.OUT)
     GPIO.setup(enB, GPIO.OUT)
-    motor2 = GPIO.PWM(enB, 100)
+    motor2 = GPIO.PWM(enB, 200)
     motor2.start(0)
 
 def motorStop():
