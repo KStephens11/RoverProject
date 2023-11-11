@@ -29,21 +29,34 @@ input[type=button] {
   cursor: pointer;
 }
 
+h3 {
+  margin-top: 5px;
+}
+
 .slider {
-  -webkit-appearance: none;  /* Override default CSS styles */
+  -webkit-appearance: none;
   appearance: none;
-  width: 17.1%;
+  width: 25%;
   height: 25px;
   background: #d3d3d3;
   outline: none;
   opacity: 1;
+  margin-bottom: 15px;
 }
 
 .slider::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
+  -webkit-appearance: none;
   appearance: none;
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #B31312; /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  width: 25px;
+  height: 25px;
+  background: #B31312;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 0%;
+  background: #B31312;
+  cursor: pointer;
 }

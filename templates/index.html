@@ -19,9 +19,14 @@
         <input type="button" value="Right" onclick="send(5)">
     </div>
     <div class="arm">
+        <h3>Arm Left - Right</h3>
         <input type="range" min="1" max="100" value="50" class="slider" id="LeftRight" onchange="send(6+':'+value)">
+        <h3>Arm Up - Down</h3>
         <input type="range" min="1" max="100" value="50" class="slider" id="UpDown" onchange="send(7+':'+value)">
+        <h3>Arm Open - Close</h3>
         <input type="range" min="1" max="100" value="50" class="slider" id="OpenClose" onchange="send(8+':'+value)">
+        <h3>Camera Left - Right</h3>
+        <input type="range" min="1" max="100" value="50" class="slider" id="OpenClose" onchange="send(9+':'+value)">
     </div>
     </center>
     <script>

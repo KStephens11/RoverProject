@@ -78,5 +78,17 @@ def servoSetup():
     camNeck = AngularServo(24, min_pulse_width=0.0006, max_pulse_width=0.0023)
     camNeck.angle=0
 
+def armHorzAngle(num):
+    armHorz.angle=num
+
+def armVertAngle(num):
+    armVert.angle=num
+    
+def clawAngle(num):
+    armClaw.angle=num
+
+def camAngle(num):
+    camNeck.angle=num
+    
 if __name__ == '__main__':
     motorSetup()
