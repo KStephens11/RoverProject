@@ -17,3 +17,33 @@ body {
   color: #EEE2DE;
   font-size: 20px;
 }
+
+input[type=button] {
+  background-color: #B31312;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  width: 10%; /* Full-width */
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 17.1%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #B31312; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}

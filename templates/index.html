@@ -7,14 +7,23 @@
 </head>
 <body>
     <div class="header"><h1>Rover Dashboard</h1></div>
+    <center>
     <div class="col-lg-8  offset-lg-2">
         <img src="{{ url_for('videoStream') }}" width="25%">
     </div>
-    <input type="button" value="button1" onclick="send(1)">
-    <input type="button" value="button2" onclick="send(2)">
-    <input type="button" value="button3" onclick="send(3)">
-    <input type="button" value="button4" onclick="send(4)">
-    <input type="button" value="button5" onclick="send(5)">
+    <div class="motors">
+        <input type="button" value="Stop" onclick="send(1)">
+        <input type="button" value="Forward" onclick="send(2)">
+        <input type="button" value="Backward" onclick="send(3)">
+        <input type="button" value="Left" onclick="send(4)">
+        <input type="button" value="Right" onclick="send(5)">
+    </div>
+    <div class="arm">
+        <input type="range" min="1" max="100" value="50" class="slider" id="LeftRight" onchange="send(6+':'+value)">
+        <input type="range" min="1" max="100" value="50" class="slider" id="UpDown" onchange="send(7+':'+value)">
+        <input type="range" min="1" max="100" value="50" class="slider" id="OpenClose" onchange="send(8+':'+value)">
+    </div>
+    </center>
     <script>
         const ws = new WebSocket('ws://192.168.1.5:8080');
         function send(num){
