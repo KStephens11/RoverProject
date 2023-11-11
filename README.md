@@ -2,6 +2,10 @@
 
 Year 3 Rover Project
 
-python3-websockets
+websockets
 
 pigpio
+
+openCV
+
+flask
