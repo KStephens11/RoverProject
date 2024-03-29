@@ -40,26 +40,40 @@
                 <h3>Camera</h3>
                 <input type="range" min="0" max="100" value="50" class="slider" id="Camera" onchange="send(11+':'+value)">
             </div>
-
-            <div class="data-container">
-                <p id="data">Speed: NULL</p>
-                <p id="data">Rotation: NULL</p>
-                <p id="data">Temperature: NULL</p>
-                <p id="data">Humidity: NULL</p>
-            </div>
-
         </div>
+
+        <div class="data-container">
+            <p id="speed">Acceleration: NULL</p>
+            <p id="rota">Gyroscope: NULL</p>
+            <p id="temp">Temperature: NULL</p>
+            <p id="humid">Humidity: NULL</p>
+        </div>
+
     </div>
     <script>
         const ws = new WebSocket('ws://192.168.0.174:8080');
+
+        ws.onmessage = function(event) {
+            const data = event.data;
+            const dataArray = data.split(";");
+
+            document.getElementById("speed").innerHTML = "Acceleration:" + dataArray[0];
+            document.getElementById("rota").innerHTML = "Gyroscope: " + dataArray[1];
+            document.getElementById("temp").innerHTML = "Temperature: " + dataArray[2] + "°C";
+            document.getElementById("humid").innerHTML = "Humidity: " + dataArray[3] + "%";
+        };
+
         function send(num){
             ws.send(num);
             console.log(num);
-        }
+        };
 
         function getData() {
-            document.getElementById("data").innerHTML = "Speed: " + (5 + 6);
-        }
+            ws.send("20:0");
+
+        };
+
+        setInterval(getData, 5000);
 
     </script>
 </body>
