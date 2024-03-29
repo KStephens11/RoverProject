@@ -3,38 +3,64 @@
 <head>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" href='../static/style.css'/>
-    <title>Raspberry Pi Dashboard</title>
+    <title>Dashboard</title>
 </head>
 <body>
     <div class="header"><h1>Rover Dashboard</h1></div>
-    <center>
-    <div class="col-lg-8  offset-lg-2">
-        <img src="{{ url_for('videoStream') }}" width="25%">
+    <div class="navbar">
+    <a href="index.html">Main</a>
+    <a>|</a>
+    <a href="GPS.html">Map</a>
     </div>
-    <div class="motors">
-        <input type="button" value="Stop" onclick="send(1)">
-        <input type="button" value="Forward" onclick="send(2)">
-        <input type="button" value="Backward" onclick="send(3)">
-        <input type="button" value="Left" onclick="send(4)">
-        <input type="button" value="Right" onclick="send(5)">
+    <div class="container">
+        <div class="left">
+            <div class="col-lg-8  offset-lg-2">
+                <img src="{{ url_for('videoStream') }}">
+            </div>
+
+        </div>
+        <div class="right">
+            <div class="motors">
+                <input class="LTurn" type="button" onmousedown="send(7+':'+0)" onmouseup="send(1+':'+0)">
+                <input class="Forward" type="button" onmousedown="send(2+':'+0)" onmouseup="send(1+':'+0)">
+                <input class="RTurn" type="button" onmousedown="send(6+':'+0)" onmouseup="send(1+':'+0)">
+                <input class="Left" type="button" onmousedown="send(4+':'+0)" onmouseup="send(1+':'+0)">
+                <input class="Backward" type="button" onmousedown="send(3+':'+0)" onmouseup="send(1+':'+0)">
+                <input class="Right" type="button" onmousedown="send(5+':'+0)" onmouseup="send(1+':'+0)">
+            </div>
+            <div class="sliders">
+                <h3>Speed</h3>
+                <input type="range" min="0" max="10" value="5" class="slider" id="Speed" onchange="send(12+':'+value)">
+                <h3>Arm X</h3>
+                <input type="range" min="0" max="100" value="50" class="slider" id="LeftRight" onchange="send(8+':'+value)">
+                <h3>Arm Y</h3>
+                <input type="range" min="0" max="100" value="50" class="slider" id="UpDown" onchange="send(9+':'+value)">
+                <h3>Claw</h3>
+                <input type="range" min="0" max="100" value="50" class="slider" id="OpenClose" onchange="send(10+':'+value)">
+                <h3>Camera</h3>
+                <input type="range" min="0" max="100" value="50" class="slider" id="Camera" onchange="send(11+':'+value)">
+            </div>
+
+            <div class="data-container">
+                <p id="data">Speed: NULL</p>
+                <p id="data">Rotation: NULL</p>
+                <p id="data">Temperature: NULL</p>
+                <p id="data">Humidity: NULL</p>
+            </div>
+
+        </div>
     </div>
-    <div class="arm">
-        <h3>Arm Left - Right</h3>
-        <input type="range" min="1" max="100" value="50" class="slider" id="LeftRight" onchange="send(6+':'+value)">
-        <h3>Arm Up - Down</h3>
-        <input type="range" min="1" max="100" value="50" class="slider" id="UpDown" onchange="send(7+':'+value)">
-        <h3>Arm Open - Close</h3>
-        <input type="range" min="1" max="100" value="50" class="slider" id="OpenClose" onchange="send(8+':'+value)">
-        <h3>Camera Left - Right</h3>
-        <input type="range" min="1" max="100" value="50" class="slider" id="OpenClose" onchange="send(9+':'+value)">
-    </div>
-    </center>
     <script>
-        const ws = new WebSocket('ws://192.168.1.5:8080');
+        const ws = new WebSocket('ws://192.168.0.174:8080');
         function send(num){
             ws.send(num);
             console.log(num);
         }
+
+        function getData() {
+            document.getElementById("data").innerHTML = "Speed: " + (5 + 6);
+        }
+
     </script>
 </body>
 </html>

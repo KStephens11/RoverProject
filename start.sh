@@ -1,3 +1,5 @@
 #!/bin/bash
 
-GPIOZERO_PIN_FACTORY=pigpio python3 script.py
+source env/bin/activate
+
+python3 script.py

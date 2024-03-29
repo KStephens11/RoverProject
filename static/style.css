@@ -1,4 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+
+@font-face {
+    font-family: "Arcade";
+    src: url("../fonts/arcade/ARCADE.TTF");
+}
+
+@font-face {
+    font-family: "fff-forward";
+    src: url("../fonts/fff-forward/FFFFORWA.TTF");
+}
+
 
 * {
     margin:0;
@@ -6,27 +17,31 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background: #EEE2DE;
+    font-family: 'Silkscreen', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    background: #ffffff;
 }
 
 .header {
   padding: 20px;
   text-align: center;
-  background: #2B2A4C;
-  color: #EEE2DE;
+  background: #000000;
+  color: #ffffff;
   font-size: 20px;
 }
 
 input[type=button] {
-  background-color: #B31312;
+  background-color: #a2a2a2;
   border: none;
   color: white;
-  padding: 16px 32px;
-  width: 10%; /* Full-width */
+  width: 50px;
+  height: 50px;
   text-decoration: none;
-  margin: 4px 2px;
+  margin: 6px 4px;
   cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 h3 {
@@ -36,7 +51,7 @@ h3 {
 .slider {
   -webkit-appearance: none;
   appearance: none;
-  width: 25%;
+  width: 100%;
   height: 25px;
   background: #d3d3d3;
   outline: none;
@@ -49,7 +64,7 @@ h3 {
   appearance: none;
   width: 25px;
   height: 25px;
-  background: #B31312;
+  background: #a2a2a2;
   cursor: pointer;
 }
 
@@ -57,6 +72,93 @@ h3 {
   width: 25px;
   height: 25px;
   border-radius: 0%;
-  background: #B31312;
+  background: #a2a2a2;
   cursor: pointer;
+}
+
+.container {
+  display: flex;
+  position: absolute;
+  top: 200px;
+  left: 50%; /* Move the left edge to the center */
+  transform: translateX(-50%); /* Move it back by half of its own width */
+  height: 605px;
+  width: 1000px;
+  border-style: dashed;
+  border-color: black;
+  flex-wrap: wrap;
+}
+
+.offset-lg-2 {
+    margin: 5px 5px;); /* Adjust margin for lg screens */
+}
+
+.offset-lg-2 img{
+    width: 100%;
+    height: 595px;
+}
+
+.left {
+  width: 80%;
+}
+
+.right {
+  width: 20%;
+}
+
+.navbar {
+  background-color: black;
+  color: #8bf !important;
+  text-align: center;
+  text-decoration: none;
+  padding: 0px 0px 5px;
+
+}
+
+.navbar a{
+  font-size: 24px;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.motors {
+  width: 25%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 5px;
+  gap: 4px;
+}
+
+.data-container {
+  margin-left: 5px;
+}
+
+.sliders {
+  width: 175px;
+  padding: 0px 8px 0px;
+}
+
+.LTurn {
+  background-image: url("../static/icons/black/corner-up-left.svg");
+}
+
+.RTurn {
+  background-image: url("../static/icons/black/corner-up-right.svg");
+}
+
+.Forward {
+  background-image: url("../static/icons/black/arrow-up.svg");
+}
+
+.Left {
+  background-image: url("../static/icons/black/arrow-left.svg");
+}
+
+.Right {
+  background-image: url("../static/icons/black/arrow-right.svg");
+}
+
+.Backward {
+  background-image: url("../static/icons/black/arrow-down.svg");
 }
