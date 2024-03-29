@@ -1,16 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 
-@font-face {
-    font-family: "Arcade";
-    src: url("../fonts/arcade/ARCADE.TTF");
-}
-
-@font-face {
-    font-family: "fff-forward";
-    src: url("../fonts/fff-forward/FFFFORWA.TTF");
-}
-
-
 * {
     margin:0;
     padding:0;
