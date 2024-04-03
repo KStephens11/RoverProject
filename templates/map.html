@@ -1,8 +1,69 @@
 <!DOCTYPE html>
 <html>
-<title>Map</title>
 <head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href='../static/style.css'/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <title>Map</title>
 </head>
 <body>
-<p>Will be done soon!</p>
+    <div class="header"><h1>Rover Dashboard</h1></div>
+    <div class="navbar">
+        <a href="/">Main</a>
+        <a>|</a>
+        <a href="map">Map</a>
+    </div>
+    <div class="container">
+        <div id=map class="map"></div>
+        <div class="cord-container">
+            <p id="lat">Latitude: NULL</p>
+            <p id="long">Longitude: NULL</p>
+        </div>
+    </div>
+
+
+
+    <script>
+
+        let dataArray;
+        let firstRun = true;
+
+        var map = L.map('map').setView([10, 10], 10);
+        var marker = L.marker([10, 10]).addTo(map)
+
+        function getData(){
+            ws.send("21:0");
+        }
+
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        const ws = new WebSocket('ws://192.168.0.174:8080');
+
+        setInterval(getData, 5000);
+
+        ws.onmessage = function(event) {
+            const data = event.data;
+            dataArray = data.split(",");
+            marker.setLatLng([dataArray[0], dataArray[1]]).update();
+
+            document.getElementById("lat").innerHTML = "Latitude: " + dataArray[0];
+            document.getElementById("long").innerHTML = "Longitude: " + dataArray[1];
+
+            if (firstRun) {
+                map.setView([dataArray[0], dataArray[1]], 18);
+                firstRun = false;
+            }
+        };
+
+        ws.onopen = function(event) {
+            getData();
+        }
+
+    </script>
 </body>
+</html>

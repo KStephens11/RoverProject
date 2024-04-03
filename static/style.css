@@ -21,13 +21,11 @@ body {
 }
 
 input[type=button] {
+  font-family: 'Silkscreen', sans-serif;
+  font-size: 18px;
   background-color: #a2a2a2;
   border: none;
-  color: white;
-  width: 50px;
-  height: 50px;
-  text-decoration: none;
-  margin: 6px 4px;
+  color: black;
   cursor: pointer;
   background-repeat: no-repeat;
   background-position: center;
@@ -121,7 +119,17 @@ h3 {
 }
 
 .data-container {
-  margin-left: 5px;
+  margin-left: 0px;
+}
+
+.cord-container {
+  position: absolute;
+  top: 610px;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
 }
 
 .sliders {
@@ -131,24 +139,59 @@ h3 {
 
 .LTurn {
   background-image: url("../static/icons/black/corner-up-left.svg");
+  width: 50px;
+  height: 50px;
+  margin: 6px 4px;
+  text-decoration: none;
 }
 
 .RTurn {
   background-image: url("../static/icons/black/corner-up-right.svg");
+  width: 50px;
+  height: 50px;
+  margin: 6px 4px;
+  text-decoration: none;
 }
 
 .Forward {
   background-image: url("../static/icons/black/arrow-up.svg");
+  width: 50px;
+  height: 50px;
+  margin: 6px 4px;
+  text-decoration: none;
 }
 
 .Left {
   background-image: url("../static/icons/black/arrow-left.svg");
+  width: 50px;
+  height: 50px;
+  margin: 6px 4px;
+  text-decoration: none;
 }
 
 .Right {
   background-image: url("../static/icons/black/arrow-right.svg");
+  width: 50px;
+  height: 50px;
+  margin: 6px 4px;
+  text-decoration: none;
 }
 
 .Backward {
   background-image: url("../static/icons/black/arrow-down.svg");
+  width: 50px;
+  height: 50px;
+  margin: 6px 4px;
+  text-decoration: none;
 }
+
+.Process {
+  padding: 4px 4px;
+  height: 75px;
+  width: 120px;
+  position: absolute;
+  right: 0px;
+  margin-top: 5px;
+}
+
+#map { height: 605px; }

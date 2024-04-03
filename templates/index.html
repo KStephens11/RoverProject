@@ -8,9 +8,9 @@
 <body>
     <div class="header"><h1>Rover Dashboard</h1></div>
     <div class="navbar">
-    <a href="index.html">Main</a>
+    <a href="/">Main</a>
     <a>|</a>
-    <a href="GPS.html">Map</a>
+    <a href="map">Map</a>
     </div>
     <div class="container">
         <div class="left">
@@ -32,13 +32,13 @@
                 <h3>Speed</h3>
                 <input type="range" min="0" max="10" value="5" class="slider" id="Speed" onchange="send(12+':'+value)">
                 <h3>Arm X</h3>
-                <input type="range" min="0" max="100" value="50" class="slider" id="LeftRight" onchange="send(8+':'+value)">
+                <input type="range" min="-30" max="30" value="0" class="slider" id="LeftRight" onchange="send(8+':'+value)">
                 <h3>Arm Y</h3>
-                <input type="range" min="0" max="100" value="50" class="slider" id="UpDown" onchange="send(9+':'+value)">
+                <input type="range" min="-80" max="80" value="0" class="slider" id="UpDown" onchange="send(9+':'+value)">
                 <h3>Claw</h3>
-                <input type="range" min="0" max="100" value="50" class="slider" id="OpenClose" onchange="send(10+':'+value)">
+                <input type="range" min="-90" max="90" value="0" class="slider" id="OpenClose" onchange="send(10+':'+value)">
                 <h3>Camera</h3>
-                <input type="range" min="0" max="100" value="50" class="slider" id="Camera" onchange="send(11+':'+value)">
+                <input type="range" min="-90" max="90" value="0" class="slider" id="Camera" onchange="send(11+':'+value)">
             </div>
         </div>
 
@@ -48,10 +48,22 @@
             <p id="temp">Temperature: NULL</p>
             <p id="humid">Humidity: NULL</p>
         </div>
+        <a href="process">
+        <input class="Process" type="button" value="Process" onmouseup="send(30:0)">
+        </a>
 
     </div>
     <script>
         const ws = new WebSocket('ws://192.168.0.174:8080');
+
+        function send(num){
+            ws.send(num);
+            console.log(num);
+        };
+
+        function getData() {
+            ws.send("20:0");
+        };
 
         ws.onmessage = function(event) {
             const data = event.data;
@@ -63,17 +75,13 @@
             document.getElementById("humid").innerHTML = "Humidity: " + dataArray[3] + "%";
         };
 
-        function send(num){
-            ws.send(num);
-            console.log(num);
-        };
+        ws.onopen = function(event) {
+            getData();
+        }
 
-        function getData() {
-            ws.send("20:0");
 
-        };
 
-        setInterval(getData, 5000);
+        setInterval(getData, 1000);
 
     </script>
 </body>
