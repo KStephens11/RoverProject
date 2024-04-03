@@ -1,7 +1,8 @@
+# Librarys
 from threading import Thread
 import asyncio
 import websockets
-from flask import Flask, render_template, request, Response, send_file
+from flask import Flask, render_template, request, Response
 import cv2
 from time import sleep
 from gpiozero import AngularServo, Motor, PWMOutputDevice
@@ -14,12 +15,13 @@ import adafruit_gps
 from ultralytics import YOLO
 app = Flask(__name__)
 
-model = YOLO('yolov8n.pt')
+model = YOLO('yolov9c.pt')
 
 # Create camera
 camera = Picamera2()
+videoConfig = camera.create_video_configuration()
+stillConfig = camera.create_still_configuration()
 
-camera.start()
 
 # Create DHT object from library
 dhtDevice = adafruit_dht.DHT11(board.D4)
@@ -68,26 +70,27 @@ def getFrame():
     frame = camera.capture_array()
     # Flip frame 180 degrees
     rot_frame = cv2.rotate(frame, cv2.ROTATE_180)
-    return rot_frame
+    # Convert frame to from BGR to RGB (Uses XBGR8888)
+    rgb_frame = cv2.cvtColor(rot_frame, cv2.COLOR_BGR2RGB)
+    return rgb_frame
 
+# Function
 def yieldFrame():
     while True:
         frame = getFrame()
-        # Convert frame to from BGR to RGB (Uses XBGR8888)
-        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         # Encode frame into memory buffer
-        jpeg = cv2.imencode('.jpg', rgb_frame)[1]
+        jpeg = cv2.imencode('.jpg', frame)[1]
         # Concats frames one by one and yields results
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n\r\n')
 
 def processImage():
     frame = getFrame()
-    image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    results = model(image)
+    results = model(frame)
     output = results[0].plot()
     jpeg = cv2.imencode('.jpg', output)[1]
     while True:
+        # Concats frames one by one and yields results
         yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n\r\n')
 
@@ -99,11 +102,17 @@ def videoStream():
 
 @app.route('/procImage')
 def procImage():
+    camera.stop()
+    camera.configure(stillConfig)
+    camera.start()
     return Response(processImage(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 # Route for Main Dashboard
 @app.route('/')
 def index():
+    camera.stop()
+    camera.configure(videoConfig)
+    camera.start()
     return render_template('index.html')
 
 # Route for Map
@@ -188,7 +197,9 @@ async def handler(websocket, idk):
                             acceleration = mpu.acceleration
                             gyro = mpu.gyro
                         except (RuntimeError, OSError):
-                            pass
+                            temp = 0
+                            humidity = 0
+                            acceleration = 0
                         await websocket.send("X:%.2f, Y:%.2f, Z:%.2f m/s^2" % (acceleration) + ";" + "\nX:%.2f, Y:%.2f, Z:%.2f rad/s" % (gyro) + ";" + str(temp) + ";" + str(humidity))
                     case "21":
                         gps.update()
