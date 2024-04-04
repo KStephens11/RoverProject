@@ -1,11 +1,5 @@
 # RoverProject
 
-Year 3 Rover Project
+Surveying Rover Rover RoverProject
 
-websockets
-
-pigpio
-
-openCV
-
-flask
+Year 3
