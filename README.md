@@ -1,5 +1,3 @@
 # RoverProject
 
-Surveying Rover Rover RoverProject
-
-Year 3
+Surveying Rover Project for Projects 3
