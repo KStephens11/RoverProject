@@ -14,13 +14,13 @@
     <a href="map">Map</a>
     </div>
     <div class="container">
-        <div class="left">
-            <div class="col-lg-8  offset-lg-2">
+        <div class="box-left">
+            <div class="col-lg-8  offset-lg-2" id="stream-feed">
                 <img src="{{ url_for('videoStream') }}">
             </div>
 
         </div>
-        <div class="right">
+        <div class="box-right">
             <div class="motors">
                 <input class="LTurn" type="button" onmousedown="send(7+':'+0)" onmouseup="send(1+':'+0)">
                 <input class="Forward" type="button" onmousedown="send(2+':'+0)" onmouseup="send(1+':'+0)">
@@ -33,14 +33,17 @@
                 <h3>Speed</h3>
                 <input type="range" min="0" max="10" value="5" class="slider" id="Speed" onchange="send(12+':'+value)">
                 <h3>Arm X</h3>
-                <input type="range" min="-30" max="30" value="0" class="slider" id="LeftRight" onchange="send(8+':'+value)">
+                <input type="range" min="-20" max="20" value="0" class="slider" id="LeftRight" onchange="send(8+':'+value)">
                 <h3>Arm Y</h3>
                 <input type="range" min="-80" max="80" value="0" class="slider" id="UpDown" onchange="send(9+':'+value)">
                 <h3>Claw</h3>
                 <input type="range" min="-90" max="90" value="0" class="slider" id="OpenClose" onchange="send(10+':'+value)">
                 <h3>Camera</h3>
-                <input type="range" min="-90" max="90" value="0" class="slider" id="Camera" onchange="send(11+':'+value)">
+                <input type="range" min="-90" max="90" value="0" class="slider" id="Camera" onchange="send(11+':'+value/-1)">
             </div>
+            <a href="process">
+            <input class="Process" type="button" value="Process" onmouseup="send(30:0)">
+            </a>
         </div>
 
         <div class="data-container">
@@ -49,10 +52,6 @@
             <p id="temp">Temperature: NULL</p>
             <p id="humid">Humidity: NULL</p>
         </div>
-        <a href="process">
-        <input class="Process" type="button" value="Process" onmouseup="send(30:0)">
-        </a>
-
     </div>
     <script>
         const ws = new WebSocket('ws://192.168.0.174:8080');
